@@ -72,4 +72,17 @@
   background-image:url(/assets/1/v4/footers_v2/TheMartian-cef692c….jpg), radial-gradient(at 30% top, rgba(7, 64, 52, 1) 0%, rgba(8, 28, 36, 1) 70%);
 }
 
+.movie-details {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  border: 2px solid #081c24;
+}
+
+.movie{
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+  border: 2px solid #081c24;
+}
 

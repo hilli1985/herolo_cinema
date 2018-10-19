@@ -9,10 +9,10 @@ class App extends Component {
     return (
       <div className="App">
       <div className="cinema-header">Welcome To Herolo Cinema</div>
-      <div className="App-header">
-      </div>
-      <div className="cinema-footer">Edited By Hilla</div>
+      {/* <div className="App-header">
+      </div> */}
       <Movies/>
+      <div className="cinema-footer">Edited By Hilla</div>
       </div>
       );
     }
