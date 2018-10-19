@@ -13,21 +13,20 @@ class EditMovie extends Component {
     @observable runtime = '';
     @observable genres = '';
     @observable director = '';
+    @observable year = '';
     
-    componentDidMount(){
+    componentDidMount =()=>{
         this.id = this.props.movieDetails.id
         this.title = this.props.movieDetails.title;
         this.year = this.props.movieDetails.year;
+        this.genres = this.getGenreString();
         this.runtime = this.props.movieDetails.runtime;
-        this.genres = 'this.getGenreString()';
         this.director = this.props.movieDetails.director;
     }
-
+    
     getGenreString = ()=>{
-        // debugger;
         let genreStr='';
-        this.props.movieDetails.genres.map(g => genreStr+(g.name));
-        //debugger;
+        genreStr = genreStr + this.props.movieDetails.genres.map(g => (g.name));
         return genreStr;
     }
     
@@ -37,19 +36,40 @@ class EditMovie extends Component {
     
     @action onSubmit = (e) =>{
         e.preventDefault();
-        let updatedMovie = {}; 
-        this.props.store.editMovie(updatedMovie);
+        let updatedMovie = {
+            id : this.id,
+            title : this.title,
+            year : this.year,
+            genres : this.setGenreToArray(),
+            runtime : this.runtime,
+            director : this.director
+        }
+        this.props.store.editMovie(updatedMovie,this.props.movieId);
     }
+
+    setGenreToArray = () =>{
+        let array = this.genres.toString().split(",");
+        return array.map(a =>({name:a}));
+    }
+    
+    
+    @action handleChange = (e) =>{
+        this[e.target.name] = e.target.value;
+    }
+    
+    
     render() {
+        // debugger;
         let movieDetails = this.props.movieDetails;
+        console.log(movieDetails);
         return (!this.showMe?<div></div>:<div className=''>EditMovie
         <form onSubmit={this.onSubmit}>
-        id:<input type="text" name="name" property="id" value={this.id} onChange={this.handleChange}/><br/>
-        title:<input type="text" name="name" property="title" value={this.title} onChange={this.handleChange}/><br/>
-        year:<input type="text" name="name" property="year" value={this.year} onChange={this.handleChange}/><br/>
-        runtime<input type="text" name="name" property="runtime" value={this.runtime} onChange={this.handleChange}/><br/>
-        genres:<input type="text" name="name" property="genres" value={this.genres}/><br/>
-        director:<input type="text" name="name" property="director" value={this.director.name} onChange={this.handleChange}/><br/>
+        id:   <input type="text" name="id"  value={this.id} onChange={this.handleChange}/><br/>
+        title:<input type="text" name="title" value={this.title} onChange={this.handleChange}/><br/>
+        year:<input type="text" name="year" value={this.year} onChange={this.handleChange}/><br/>
+        runtime:<input type="text" name="runtime" value={this.runtime} onChange={this.handleChange}/><br/>
+        genres: <input type="text" name="genres" value={this.genres} onChange={this.handleChange}/><br/>
+        director:<input type="text" name="director" property="director" value={this.director.name} onChange={this.handleChange}/><br/>
         <input type="submit" value="Save" />
         </form>
         <button onClick={this.closeEditMovie}>Cancel</button>

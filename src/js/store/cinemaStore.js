@@ -45,8 +45,9 @@ class cinemaStore {
         this.movies.splice(index, 1);
     }
 
-    @action editMovie(updatedMovie) {
-        alert('edit movie');
+    @action editMovie(updatedMovie,movieId) {
+        let index = this.findMovieById(movieId);
+        this.movies[index]=updatedMovie;
     }
 
     findMovieById (movieId) {
