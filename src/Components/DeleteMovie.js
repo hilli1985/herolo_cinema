@@ -3,8 +3,6 @@ import { observer, inject } from "mobx-react";
 import { observable, action } from "mobx"; 
 
 
-
-
 @inject("store")
 @observer
 class DeleteMovie extends Component {
@@ -15,7 +13,7 @@ class DeleteMovie extends Component {
     }
     @action deleteMovie=()=>{
         this.props.store.deleteMovie(this.props.movieId);
-        alert(`movie deleted ${this.props.movieId}`);
+        this.props.showMovie();
     }
     render() {
         return (!this.showMe?<div></div>:<div className=''>DeleteMovie

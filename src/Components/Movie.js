@@ -11,7 +11,12 @@ import DeleteMovie from './DeleteMovie';
 class Movie extends Component {
     @observable showEditMovie=false;
     @observable showDeleteMovie=false;
+    @observable showMovie=true;
 
+    showMovie = () =>{
+        this.showMovie = !this.showMovie;
+    }
+    
     toggleDeleteMovie=()=>{
         this.showDeleteMovie=!this.showDeleteMovie;
     }
@@ -20,8 +25,11 @@ class Movie extends Component {
     }
     
     render() {
-        return (<div className="movie">Movie
-        <div className="movie-details">movieDetails:<br/>
+        // debugger;
+        console.log(this.props.movieDetails.year);
+        return (!this.showMovie?<div></div>:<div className="movie">Movie
+        <div className="movie-details">
+            movieDetails:<br/>
             id:{this.props.movieDetails.id}<br/>
             title:{this.props.movieDetails.title}<br/>
             year:{this.props.movieDetails.year}<br/>
@@ -32,8 +40,8 @@ class Movie extends Component {
         <button onClick={this.toggleEditMovie}>Edit</button>
         <button onClick={this.toggleDeleteMovie}>Delete</button>
         {/* https://react-bootstrap.github.io/components/buttons/ */}
-        {this.showEditMovie&&<EditMovie movieDetails={this.props.movieDetails}/>}
-        {this.showDeleteMovie&&<DeleteMovie movieId={this.props.movieDetails.id}/>}
+        {this.showEditMovie&&<EditMovie movieId={this.props.movieDetails.id} movieDetails={this.props.movieDetails}/>}
+        {this.showDeleteMovie&&<DeleteMovie showMovie={this.showMovie} movieId={this.props.movieDetails.id}/>}
         </div>);
     }
 }
