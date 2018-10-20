@@ -4,6 +4,7 @@ import { observable, action } from "mobx";
 
 class cinemaStore {
     @observable movies =[];
+    defaultImg ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL20p2gfI3s3zstKtE2SXZBnqV1ZXAIfHdfaMdODspL0s6eZDg'
     constructor () {
         this.initMovies(); 
         console.log(this.movies);
@@ -39,7 +40,7 @@ class cinemaStore {
     }
     
     @action addMovie (movie) {
-        this.movies.push(movie);
+        this.movies.push({...movie, poster:this.defaultImg});
     }
     @action deleteMovie (movieId) {
         debugger;
@@ -50,7 +51,7 @@ class cinemaStore {
     @action editMovie(updatedMovie,movieId) {
         debugger;
         let index = this.findMovieById(movieId);
-        this.movies[index]=updatedMovie;
+        this.movies[index]={...updatedMovie, poster:this.movies[index].poster};
     }
 
     @action getStrFromGenres = (genres)=>{
