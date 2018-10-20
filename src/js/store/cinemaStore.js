@@ -20,11 +20,11 @@ class cinemaStore {
     @action getMovieInfo = async (id) =>{
         let movie = await util.getMovieByIdFromAPI(id);
         movie = {
-            id : movie.id,
+            id : movie.id.toString(),
             title : movie.title,
             year : movie.release_date.split('-')[0],
             runtime : movie.runtime,
-            genres : movie.genres,
+            genres : this.getStrFromGenres(movie.genres),
             director : this.getDirector(movie.credits.crew),
             poster:`http://image.tmdb.org/t/p/w185//${movie.poster_path}`,
             overview:movie.overview
@@ -34,20 +34,29 @@ class cinemaStore {
 
     @action getDirector = (crew) =>{
         let director = crew.filter(c => c.job==='Director');
-        return ({name:director[0].name,img:director[0].profile_path});
+        // return ({name:director[0].name,img:director[0].profile_path});
+        return (director[0].name);
     }
     
     @action addMovie (movie) {
-        this.movies.push();
+        this.movies.push(movie);
     }
     @action deleteMovie (movieId) {
-        var index = this.findMovieById(parseInt(movieId));
+        debugger;
+        var index = this.findMovieById(movieId);
         this.movies.splice(index, 1);
     }
 
     @action editMovie(updatedMovie,movieId) {
+        debugger;
         let index = this.findMovieById(movieId);
         this.movies[index]=updatedMovie;
+    }
+
+    @action getStrFromGenres = (genres)=>{
+        let genreStr='';
+        genreStr = `${genreStr}${genres.map(g => (g.name))}`;
+        return genreStr;
     }
 
     findMovieById (movieId) {
@@ -57,7 +66,6 @@ class cinemaStore {
                 index = i;
             }
         });
-        console.log(index)
         return index;
     } 
 }

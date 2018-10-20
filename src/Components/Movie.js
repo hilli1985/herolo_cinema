@@ -34,8 +34,8 @@ class Movie extends Component {
             title:{this.props.movieDetails.title}<br/>
             year:{this.props.movieDetails.year}<br/>
             runtime:{this.props.movieDetails.runtime}<br/>
-            genres:{this.props.movieDetails.genres.map(g=><span>{g.name} </span>)}<br/>
-            director:{this.props.movieDetails.director.name}<br/>
+            genres:{this.props.movieDetails.genres}<br/>
+            director:{this.props.movieDetails.director}<br/>
         </div>
         <button onClick={this.toggleEditMovie}>Edit</button>
         <button onClick={this.toggleDeleteMovie}>Delete</button>
