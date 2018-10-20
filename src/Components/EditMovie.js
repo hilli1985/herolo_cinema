@@ -19,17 +19,11 @@ class EditMovie extends Component {
         this.id = this.props.movieDetails.id
         this.title = this.props.movieDetails.title;
         this.year = this.props.movieDetails.year;
-        this.genres = this.getGenreString();
+        this.genres = this.props.movieDetails.genres;
         this.runtime = this.props.movieDetails.runtime;
         this.director = this.props.movieDetails.director;
     }
-    
-    getGenreString = ()=>{
-        let genreStr='';
-        genreStr = genreStr + this.props.movieDetails.genres.map(g => (g.name));
-        return genreStr;
-    }
-    
+     
     @action closeEditMovie = ()=>{
         this.showMe = !this.showMe; 
     }
@@ -40,14 +34,16 @@ class EditMovie extends Component {
             id : this.id,
             title : this.title,
             year : this.year,
-            genres : this.setGenreToArray(),
+            genres : this.genres,
             runtime : this.runtime,
             director : this.director
         }
         this.props.store.editMovie(updatedMovie,this.props.movieId);
+        this.closeEditMovie();
+
     }
 
-    setGenreToArray = () =>{
+    setGenreToArray = () => {
         let array = this.genres.toString().split(",");
         return array.map(a =>({name:a}));
     }
@@ -59,7 +55,6 @@ class EditMovie extends Component {
     
     
     render() {
-        // debugger;
         let movieDetails = this.props.movieDetails;
         console.log(movieDetails);
         return (!this.showMe?<div></div>:<div className=''>EditMovie
@@ -69,7 +64,7 @@ class EditMovie extends Component {
         year:<input type="text" name="year" value={this.year} onChange={this.handleChange}/><br/>
         runtime:<input type="text" name="runtime" value={this.runtime} onChange={this.handleChange}/><br/>
         genres: <input type="text" name="genres" value={this.genres} onChange={this.handleChange}/><br/>
-        director:<input type="text" name="director" property="director" value={this.director.name} onChange={this.handleChange}/><br/>
+        director:<input type="text" name="director" property="director" value={this.director} onChange={this.handleChange}/><br/>
         <input type="submit" value="Save" />
         </form>
         <button onClick={this.closeEditMovie}>Cancel</button>

@@ -41,23 +41,25 @@
 }
 
 .cinema-footer {
-  padding-top: 3%;
+  margin-top: 1%;
+  padding-top: 1%;
+  padding-bottom: 1%;
   font-weight: bold;
   font-family: "Comic Sans MS", cursive, sans-serif;
   align-items: center;
   justify-content: center;
   font-size: calc(20px + 3vmin);
   color: #805be7;
-  height: 100px;
+  height: 40%;
   width: 100%;
-  padding-top:3%; 
   /* background: #081c24; */
   background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%);
   /* background-image:url(/assets/1/v4/footers_v2/TheMartian-cef692c….jpg), radial-gradient(at 30% top, rgba(7, 64, 52, 1) 0%, rgba(8, 28, 36, 1) 70%); */
 }
 
 .cinema-header {
-  padding-top: 3%;
+  padding-top: 1%;
+  padding-bottom: 1%;
   /* font-weight: bold; */
   /* font-family: "Comic Sans MS", cursive, sans-serif; */
   font-family: Verdana,sans-serif;
@@ -65,7 +67,7 @@
   justify-content: center;
   font-size: calc(20px + 3vmin);
   color: #01d277;
-  height: 100px;
+  height: 40%;
   width: 100%;
   /* background: #081c24; */
   /* background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%); */
