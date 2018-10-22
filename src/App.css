@@ -1,7 +1,5 @@
 .App {
   text-align: center;
-  /* color: #61dafb;
-  background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%); */
 }
 
 .App-logo {
@@ -10,10 +8,7 @@
 }
 
 .App-header {
-  /* background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%); */
-  /* background-color: #fff; */
   min-height: 100vh;
-  /* display: flex; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -53,9 +48,6 @@
   color: #805be7;
   height: 40%;
   width: 100%;
-  /* background: #081c24; */
-  background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%);
-  /* background-image:url(/assets/1/v4/footers_v2/TheMartian-cef692c….jpg), radial-gradient(at 30% top, rgba(7, 64, 52, 1) 0%, rgba(8, 28, 36, 1) 70%); */
 }
 
 .cinema-header {
@@ -65,25 +57,22 @@
   padding-left: 1%;
   padding-bottom: 1%;
   margin-bottom: 1%;
-  /* font-weight: bold; */
-  /* font-family: "Comic Sans MS", cursive, sans-serif; */
-  font-family: Verdana,sans-serif;
+  font-weight: bold;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  /* font-family: Verdana,sans-serif; */
   align-items: center;
   justify-content: center;
   font-size: calc(7px + 3vmin);
-  color: #01d277;
+  color: #C1403D;
   height: 40%;
   width: 100%;
-  /* background: #081c24; */
-  /* background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%); */
-  background-image:radial-gradient(at 30% top, rgba(7, 64, 52, 1) 0%, rgba(8, 28, 36, 1) 70%);
+  background: #040c0E;
 }
+
 
 .movie-details {
   width: 270px;
   height: 230px;
-  /* display: inline-block; */
-  /* border: 2px solid #081c24; */
   background-color:whitesmoke;
   border-radius: 7px;
   box-shadow: 0 4px 2px -2px gray;
@@ -99,29 +88,29 @@
   width: 300px;
   height: 300px;
   display: inline-block;
-  border: 2px solid #081c24;
 }
 
 .btn-add-movie{
-  display: inline;
-  position: relative;
-  top:-10%;
+  font-size: 20px;
+  margin: 2px;
+  margin-left:5px; 
 }
 
 .span-add-movie{
   height: 20px;
   width: 120px;
-  margin-right: 5%;
+  margin-right: 7px;
   font-size: 15px;
-
 }
 
-.add-movie-close{
+.add-movie{
   display: flex;
   text-align: right;
   position: absolute;
-  right:2%;
-  top:3%;
+  right:0;
+  top:5px;
+  margin: 0.2%;
+  padding: calc(2px + 1vmin);
 }
 
 .add-modal{
@@ -129,11 +118,6 @@
   position: absolute;
   z-index: 6;
   right:0;
-  /* background: whitesmoke; */
-  /* box-shadow: 0 4px 2px -2px gray; */
-  /* text-align: center; */
-  /* margin: 1%;
-  padding: 1%; */
 }
 
 .headline-add-movie{
@@ -153,6 +137,7 @@
   margin-right: 8%;
   margin-left: 9%; 
   z-index: 1;
+  background-color: #040c0E;
 }
  
 .item-container{
@@ -162,12 +147,13 @@
   background-color: white;
   overflow: hidden;
   z-index: 2;
-  box-shadow: 2px 2px 2px #B3B3B3;
+  box-shadow: 1px 1px 1px #B3B3B3;
   margin: 20px;
-  background-color: #2d2d2d;
+  background-color:#C1403D;
+  background-color:#0294A5;
   border-radius: 7px;
-  /* background-image:radial-gradient(at 30% top, rgba(7, 64, 52, 1) 0%, rgba(8, 28, 36, 1) 70%); */
 }
+ 
 
 .edit-modal{
   z-index: 8;
@@ -205,8 +191,7 @@
 .movie-buttons{
   display: flex;
   position: relative;
-  /* right:0; */
-  left:80%;
+  left:78%;
   padding: 1%;
   
 }
@@ -216,12 +201,8 @@
   color: #EAEBE7;
   font-size: 20px;
   display: flex;
-  /* padding-left: auto;
-  padding-right: auto; */
-  /* margin-left: auto;
-  margin-right: auto; */
+
   line-height: 20px;
-  /* line-height:1; */
   width: 80%;
   height: 20px;
   position: relative;
@@ -247,25 +228,43 @@
 
 .delete-modal {
   z-index: 8;
-  /* background-color: #EAEBE7; */
-  /* background-color: #fff; */
-  /* width: 100%;
-  padding: 3%; */
   position: absolute;
   top:10px;
   left:0;
   margin-right: auto;
   margin-left: auto; 
-  /* margin-top:10%;
-  margin-bottom:10%; */
-  /* border-radius: 5%; */
 }
 
 .alert-movie {
-  padding-left: 2%;
-  padding-right: 2%;
-  width:100%;
+  margin-left: 2.5%;
+  margin-top: 2.5%;
+  width: 95%;
   height:80%;
+   text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+  background-color:#C1403D;
+  color:#EAEBE7;
  
+}
+
+.input-span {
+  background-color:#fff;
+  border-right:none!important;
+  border-top-right-radius:0  !important;
+  border-bottom-right-radius:0  !important;
+} 
+
+.input-span-right {
+  background-color:#fff;
+  border-left:none!important;
+} 
+
+.cinema-footer {
+  box-shadow: 0 -4px 2px -2px gray;
+  margin-top: 1%;
+  height: 40%;
+  width: 100%;
 }
 

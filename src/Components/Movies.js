@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react"; 
-import { observable } from "mobx"; 
 import Movie from './Movie';
 
 
@@ -11,7 +10,7 @@ class Movies extends Component {
     render() {
         return (
         <div className='movies-container movies'>
-        {this.props.store.movies.map(m =>(<div><Movie movieDetails={m}/></div>))}
+        {this.props.store.movies.map(m =>(<div key={m.id} ><Movie movieDetails={m}/></div>))}
         </div>);
     }
 }

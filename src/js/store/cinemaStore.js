@@ -6,12 +6,9 @@ class cinemaStore {
     @observable movies =[];
     defaultImg ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL20p2gfI3s3zstKtE2SXZBnqV1ZXAIfHdfaMdODspL0s6eZDg'
     constructor () {
-        this.initMovies(); 
-        console.log(this.movies);
-        
+        this.initMovies();         
     }
     @action initMovies = async () => {
-        console.log('initMovies');
         let data = await util.getMoviesFromAPI();
         let movieIds = data.map(movie => movie.id);
         await movieIds.map(async id => {
@@ -35,12 +32,12 @@ class cinemaStore {
 
     @action getDirector = (crew) =>{
         let director = crew.filter(c => c.job==='Director');
-        // return ({name:director[0].name,img:director[0].profile_path});
         return (director[0].name);
     }
     
     @action addMovie (movie) {
-        this.movies.push({...movie, poster:this.defaultImg});
+        let title = movie.title.toCamelCase(movie.title);
+        this.movies.push({...movie, title:title, poster:this.defaultImg});
     }
     @action deleteMovie (movieId) {
         debugger;
@@ -55,8 +52,7 @@ class cinemaStore {
     }
 
     @action getStrFromGenres = (genres)=>{
-        let genreStr='';
-        genreStr = `${genreStr}${genres.map(g => (g.name))}`;
+        let genreStr = `${genres.map(g => (g.name))}`;
         return genreStr;
     }
 
@@ -69,7 +65,20 @@ class cinemaStore {
         });
         return index;
     } 
+
+    isMovieExist = (title) => {
+        return (this.movies.filter(m => m.title===title).length!==0)
+    }
+
+
 }
+
+String.prototype.toCamelCase = function(str){
+    return str.split(' ').map(function(word,index){
+      //For each word upper case the first char and lowercase the rest.
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    }).join(' ');
+  }
 
 const store = new cinemaStore();
 export default store;

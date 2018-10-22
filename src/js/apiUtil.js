@@ -17,8 +17,6 @@ class apiUtil {
     getMovieByIdFromAPI = async (movieId)=>{
         var data;
         let api_key = '877ee9cfc049b2212145ecb01fb2a031';
-        let language = 'en-US';
-        let page = 1;
         let url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}&append_to_response=credits`;
         await axios.get(url)
           .then(response => { 

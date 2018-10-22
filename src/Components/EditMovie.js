@@ -5,12 +5,10 @@ import { Modal } from 'react-bootstrap';
 
 
 
-
 @inject("store")
 @observer
 class EditMovie extends Component {
     @observable showMe = true;
-    @observable id = '';
     @observable title = '';
     @observable runtime = '';
     @observable genres = '';
@@ -18,7 +16,6 @@ class EditMovie extends Component {
     @observable year = '';
     
     componentDidMount =()=>{
-        this.id = this.props.movieDetails.id
         this.title = this.props.movieDetails.title;
         this.year = this.props.movieDetails.year;
         this.genres = this.props.movieDetails.genres;
@@ -28,7 +25,6 @@ class EditMovie extends Component {
     
     @action closeEditMovie = ()=> {
         this.props.toggleMe();
-        // this.showMe = false; 
     }
     
     @action onSubmit = (e) =>{
@@ -40,6 +36,17 @@ class EditMovie extends Component {
             genres : this.genres,
             runtime : this.runtime,
             director : this.director
+        }
+        
+        if (this.title==='') {
+            alert('Title is cannot be empty!')
+            return;
+        }
+
+        let movieExist = this.props.store.isMovieExist(this.title);
+        if (movieExist){
+            alert('Title is already exist, use a different one!')
+            return;
         }
         this.props.store.editMovie(updatedMovie,this.props.movieId);
         this.closeEditMovie();
@@ -59,7 +66,6 @@ class EditMovie extends Component {
     
     render() {
         return (
-            // !this.showMe?<div></div>:
             <div className="edit-modal">
             <Modal.Dialog>
             <Modal.Header closeButton onClick={this.closeEditMovie}>
@@ -67,12 +73,11 @@ class EditMovie extends Component {
             </Modal.Header>
             <Modal.Body>
             <form className="form-group" onSubmit={this.onSubmit}>
-            <div className="input-group edt-mdl-gr"><span className="input-group-text">id</span><input className="form-control input-sm" type="text" name="id"  value={this.id} onChange={this.handleChange}/></div>
-            <div className="input-group edt-mdl-gr"><span className="input-group-text">title</span><input className="form-control input-sm" type="text" name="title"  value={this.title} onChange={this.handleChange}/></div>
-            <div className="input-group edt-mdl-gr"><span className="input-group-text">year</span><input className="form-control input-sm" type="text" name="year"  value={this.year} onChange={this.handleChange}/></div>
-            <div className="input-group edt-mdl-gr"><span className="input-group-text">runtime</span><input className="form-control input-sm" type="text" name="runtime"  value={this.runtime} onChange={this.handleChange}/></div>
-            <div className="input-group edt-mdl-gr"><span className="input-group-text">genres</span><input className="form-control input-sm" type="text" name="genres"  value={this.genres} onChange={this.handleChange}/></div>
-            <div className="input-group edt-mdl-gr"><span className="input-group-text">director</span><input className="form-control input-sm" type="text" name="director"  value={this.director} onChange={this.handleChange}/></div>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">title:</span><input className="input-span-right form-control input-sm" type="text" name="title"  value={this.title} onChange={this.handleChange}/></div>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">year:</span><input className="input-span-right form-control input-sm" type="text" name="year"  value={this.year} onChange={this.handleChange}/></div>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">runtime:</span><input className="input-span-right form-control input-sm" type="text" name="runtime"  value={this.runtime} onChange={this.handleChange}/></div>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">genres:</span><input className="input-span-right form-control input-sm" type="text" name="genres"  value={this.genres} onChange={this.handleChange}/></div>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">director:</span><input className="input-span-right form-control input-sm" type="text" name="director"  value={this.director} onChange={this.handleChange}/></div>
             <input className="btn btn-primary edit-modal-btn" type="submit" value="Save" />
             <button className="btn btn-secondary edit-modal-btn" onClick={this.closeEditMovie}>Cancel</button>
             </form>

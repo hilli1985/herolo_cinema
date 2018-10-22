@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react"; 
-import { observable, action } from "mobx"; 
+import { action } from "mobx"; 
 import { Modal, Button } from 'react-bootstrap';
 
 @inject("store")
@@ -16,7 +16,7 @@ class DeleteMovie extends Component {
         return (
         <div className='delete-modal'>
               <Modal.Dialog>
-            <Modal.Header closeButton onClick={this.closeDeleteMovie}>
+            <Modal.Header closeButton onClick={this.props.toggleMe}>
             <Modal.Title>Delete Movie</Modal.Title>
             </Modal.Header>
             <Modal.Body>
