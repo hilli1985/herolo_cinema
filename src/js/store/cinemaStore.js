@@ -34,21 +34,34 @@ class cinemaStore {
         let director = crew.filter(c => c.job==='Director');
         return (director[0].name);
     }
+
+    generateId = () => {
+        function s4() {
+          return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+      }
+
     
     @action addMovie (movie) {
+        let id = this.generateId().toString();
+        id = id.substring(0,6);
         let title = movie.title.toCamelCase(movie.title);
-        this.movies.push({...movie, title:title, poster:this.defaultImg});
+        title = this.cleanTheString(title);
+        this.movies.push({...movie, title:title, id:id , poster:this.defaultImg});
     }
     @action deleteMovie (movieId) {
-        debugger;
         var index = this.findMovieById(movieId);
         this.movies.splice(index, 1);
     }
 
     @action editMovie(updatedMovie,movieId) {
-        debugger;
         let index = this.findMovieById(movieId);
-        this.movies[index]={...updatedMovie, poster:this.movies[index].poster};
+        let title = updatedMovie.title.toCamelCase(updatedMovie.title);
+        title = this.cleanTheString(title);
+        this.movies[index] = {...updatedMovie, id:movieId, title:title , poster:this.movies[index].poster};
     }
 
     @action getStrFromGenres = (genres)=>{
@@ -68,6 +81,15 @@ class cinemaStore {
 
     isMovieExist = (title) => {
         return (this.movies.filter(m => m.title===title).length!==0)
+    }
+
+    isDateValid = (year) => {
+        var reg = new RegExp('^[0-9]+$');
+        return reg.test(year);
+    }
+
+    cleanTheString = (str) => {
+        return str.replace(/[^\s\dA-Z]/gi, '').replace(/ +/g, ' ');
     }
 
 

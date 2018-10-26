@@ -8,7 +8,7 @@
 }
 
 .App-header {
-  min-height: 100vh;
+  min-height: 30%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -50,7 +50,24 @@
   width: 100%;
 }
 
+@media only screen and (max-width: 900px) {
+  [class = "cinema-header"]  {
+      font-size: 20%; 
+      width: 500px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  [class = "add-movie"]  {
+      font-size: 0; 
+      display: inline-block;
+      margin-right: -7px;
+      margin-top: -9px;
+  }
+}
+
 .cinema-header {
+  font-size: calc(25px + 1vmin);
   text-align: left;
   box-shadow: 0 4px 2px -2px gray;
   padding-top: 1%;
@@ -91,26 +108,18 @@
 }
 
 .btn-add-movie{
-  font-size: 20px;
-  margin: 2px;
-  margin-left:5px; 
+  font-size: calc(10px + 1vmin);
+  position: absolute;
+  top:0;
+  right:-40px;
 }
 
-.span-add-movie{
-  height: 20px;
-  width: 120px;
-  margin-right: 7px;
-  font-size: 15px;
-}
 
 .add-movie{
   display: flex;
-  text-align: right;
   position: absolute;
-  right:0;
-  top:5px;
-  margin: 0.2%;
-  padding: calc(2px + 1vmin);
+  right:60px;
+  top:calc(15px);
 }
 
 .add-modal{
@@ -127,15 +136,16 @@
 }
 
 .movies-container {
+  min-width: 400px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto; 
-  margin-right: 8%;
-  margin-left: 9%; 
+  padding-right:5%;
+  padding-left: 6%;
+  /* margin-right: auto;
+  margin-left: auto;  */
+  margin-right: 4%;
+  margin-left: 4%; 
   z-index: 1;
   background-color: #040c0E;
 }
@@ -235,18 +245,20 @@
   margin-left: auto; 
 }
 
-.alert-movie {
+.inner-movie {
   margin-left: 2.5%;
   margin-top: 2.5%;
   width: 95%;
   height:80%;
-   text-align: left;
+  text-align: left;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-line;
   background-color:#C1403D;
   color:#EAEBE7;
- 
+  border-radius: 5px;
+  padding: 7px;
+  opacity: 0.9;
 }
 
 .input-span {

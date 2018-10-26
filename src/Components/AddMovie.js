@@ -12,7 +12,6 @@ library.add(faPlusSquare)
 @observer
 class AddMovie extends Component {
     @observable showMe = false;
-    @observable id = '';
     @observable title = '';
     @observable runtime = '';
     @observable genres = '';
@@ -26,6 +25,7 @@ class AddMovie extends Component {
     
     @action onSubmit = (e) =>{
         let movieExist = false;
+        let dateValid = true;
         e.preventDefault();
         let newMovie = {
             id : this.id,
@@ -42,8 +42,13 @@ class AddMovie extends Component {
         }
 
         movieExist = this.props.store.isMovieExist(this.title);
+        dateValid = this.props.store.isDateValid (this.year);
         if (movieExist){
-            alert('Title is already exist, use a different one!')
+            alert('Same movie name is already exist, please use a different one!')
+            return;
+        }
+        if (!dateValid){
+            alert('Please use only numbers in year!')
             return;
         }
         this.props.store.addMovie(newMovie);
@@ -80,14 +85,13 @@ class AddMovie extends Component {
             </Modal.Header>
             <Modal.Body>
             <form className="form-group" onSubmit={this.onSubmit}>
-            <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="id"  value={this.id} onChange={this.handleChange} placeholder='id'/>
             <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="title"  value={this.title} onChange={this.handleChange} placeholder='title'/>
             <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="year"  value={this.year} onChange={this.handleChange}placeholder='year' />
             <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="runtime"  value={this.runtime} onChange={this.handleChange} placeholder='runtime'/>
             <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="genres"  value={this.genres} onChange={this.handleChange} placeholder='genres'/>
             <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="director"  value={this.director} onChange={this.handleChange} placeholder='director'/>
             <input className="btn btn-primary edit-modal-btn" type="submit" value="Save" />
-            <button className="btn btn-secondary edit-modal-btn" onClick={this.closeEditMovie}>Cancel</button>
+            <button className="btn btn-secondary edit-modal-btn" onClick={this.toggleAddMovie}>Cancel</button>
             </form>
             </Modal.Body>
             </Modal.Dialog>
