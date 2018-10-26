@@ -66,7 +66,7 @@ class Movie extends Component {
             {this.showEditMovie && <EditMovie toggleMe={this.toggleEditMovie} movieId={this.props.movieDetails.id} movieDetails={this.props.movieDetails}/>}
             {this.showDeleteMovie && <DeleteMovie toggleMe={this.toggleDeleteMovie} showMovie={this.showMovie} movieId={this.props.movieDetails.id}/>}
             <br/>
-            <div className='movie-title'>id:{this.props.movieDetails.id}</div>
+            <div className='movie-id'>ID: {this.props.movieDetails.id}</div>
             </div>);
         }
     }
