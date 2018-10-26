@@ -29,26 +29,26 @@ class cinemaStore {
         }
         this.movies.push(movie);
     }
-
+    
     @action getDirector = (crew) =>{
         let director = crew.filter(c => c.job==='Director');
         return (director[0].name);
     }
-
+    
     generateId = () => {
         function s4() {
-          return Math.floor((1 + Math.random()) * 0x10000)
+            return Math.floor((1 + Math.random()) * 0x10000)
             .toString(16)
             .substring(1);
         }
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-      }
-
+    }
+    
     
     @action addMovie (movie) {
         let id = this.generateId().toString();
         id = id.substring(0,6);
-        let title = movie.title.toCamelCase(movie.title);
+        let title = this.toCamelCase(movie.title);
         title = this.cleanTheString(title);
         this.movies.push({...movie, title:title, id:id , poster:this.defaultImg});
     }
@@ -56,19 +56,19 @@ class cinemaStore {
         var index = this.findMovieById(movieId);
         this.movies.splice(index, 1);
     }
-
+    
     @action editMovie(updatedMovie,movieId) {
         let index = this.findMovieById(movieId);
-        let title = updatedMovie.title.toCamelCase(updatedMovie.title);
+        let title = this.toCamelCase(updatedMovie.title);
         title = this.cleanTheString(title);
         this.movies[index] = {...updatedMovie, id:movieId, title:title , poster:this.movies[index].poster};
     }
-
+    
     @action getStrFromGenres = (genres)=>{
         let genreStr = `${genres.map(g => (g.name))}`;
         return genreStr;
     }
-
+    
     findMovieById (movieId) {
         let index;
         this.movies.forEach(function(x, i) {
@@ -78,29 +78,31 @@ class cinemaStore {
         });
         return index;
     } 
-
+    
     isMovieExist = (title) => {
         return (this.movies.filter(m => m.title===title).length!==0)
     }
-
+    
     isDateValid = (year) => {
         var reg = new RegExp('^[0-9]+$');
         return reg.test(year);
     }
-
+    
     cleanTheString = (str) => {
         return str.replace(/[^\s\dA-Z]/gi, '').replace(/ +/g, ' ');
     }
-
-
+    
+    
+    toCamelCase = (str) =>{
+        return str.split(' ').map(function(word,index){
+            //For each word upper case the first char and lowercase the rest.
+            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        }).join(' ');
+    }
+    
+    
 }
 
-String.prototype.toCamelCase = function(str){
-    return str.split(' ').map(function(word,index){
-      //For each word upper case the first char and lowercase the rest.
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    }).join(' ');
-  }
 
 const store = new cinemaStore();
 export default store;
