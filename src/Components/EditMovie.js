@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react"; 
 import { observable, action } from "mobx"; 
+import { Modal } from 'react-bootstrap';
 
 
 
@@ -8,7 +9,6 @@ import { observable, action } from "mobx";
 @observer
 class EditMovie extends Component {
     @observable showMe = true;
-    @observable id = '';
     @observable title = '';
     @observable runtime = '';
     @observable genres = '';
@@ -16,16 +16,15 @@ class EditMovie extends Component {
     @observable year = '';
     
     componentDidMount =()=>{
-        this.id = this.props.movieDetails.id
         this.title = this.props.movieDetails.title;
         this.year = this.props.movieDetails.year;
         this.genres = this.props.movieDetails.genres;
         this.runtime = this.props.movieDetails.runtime;
         this.director = this.props.movieDetails.director;
     }
-     
-    @action closeEditMovie = ()=>{
-        this.showMe = !this.showMe; 
+    
+    @action closeEditMovie = ()=> {
+        this.props.toggleMe();
     }
     
     @action onSubmit = (e) =>{
@@ -38,11 +37,22 @@ class EditMovie extends Component {
             runtime : this.runtime,
             director : this.director
         }
+        
+        if (this.title==='') {
+            alert('Title is cannot be empty!')
+            return;
+        }
+
+        let movieExist = this.props.store.isMovieExist(this.title);
+        if (movieExist){
+            alert('Title is already exist, use a different one!')
+            return;
+        }
         this.props.store.editMovie(updatedMovie,this.props.movieId);
         this.closeEditMovie();
-
+        
     }
-
+    
     setGenreToArray = () => {
         let array = this.genres.toString().split(",");
         return array.map(a =>({name:a}));
@@ -55,20 +65,25 @@ class EditMovie extends Component {
     
     
     render() {
-        let movieDetails = this.props.movieDetails;
-        console.log(movieDetails);
-        return (!this.showMe?<div></div>:<div className=''>EditMovie
-        <form onSubmit={this.onSubmit}>
-        id:   <input type="text" name="id"  value={this.id} onChange={this.handleChange}/><br/>
-        title:<input type="text" name="title" value={this.title} onChange={this.handleChange}/><br/>
-        year:<input type="text" name="year" value={this.year} onChange={this.handleChange}/><br/>
-        runtime:<input type="text" name="runtime" value={this.runtime} onChange={this.handleChange}/><br/>
-        genres: <input type="text" name="genres" value={this.genres} onChange={this.handleChange}/><br/>
-        director:<input type="text" name="director" property="director" value={this.director} onChange={this.handleChange}/><br/>
-        <input type="submit" value="Save" />
-        </form>
-        <button onClick={this.closeEditMovie}>Cancel</button>
-        </div>);
+        return (
+            <div className="edit-modal">
+            <Modal.Dialog>
+            <Modal.Header closeButton onClick={this.closeEditMovie}>
+            <Modal.Title>Edit Movie</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <form className="form-group" onSubmit={this.onSubmit}>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">title:</span><input className="input-span-right form-control input-sm" type="text" name="title"  value={this.title} onChange={this.handleChange}/></div>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">year:</span><input className="input-span-right form-control input-sm" type="text" name="year"  value={this.year} onChange={this.handleChange}/></div>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">runtime:</span><input className="input-span-right form-control input-sm" type="text" name="runtime"  value={this.runtime} onChange={this.handleChange}/></div>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">genres:</span><input className="input-span-right form-control input-sm" type="text" name="genres"  value={this.genres} onChange={this.handleChange}/></div>
+            <div className="input-group edt-mdl-gr"><span className="input-span input-group-text">director:</span><input className="input-span-right form-control input-sm" type="text" name="director"  value={this.director} onChange={this.handleChange}/></div>
+            <input className="btn btn-primary edit-modal-btn" type="submit" value="Save" />
+            <button className="btn btn-secondary edit-modal-btn" onClick={this.closeEditMovie}>Cancel</button>
+            </form>
+            </Modal.Body>
+            </Modal.Dialog>
+            </div>)
+        }
     }
-}
-export default EditMovie;
+    export default EditMovie;

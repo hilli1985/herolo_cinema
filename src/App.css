@@ -1,7 +1,5 @@
 .App {
   text-align: center;
-  /* color: #61dafb;
-  background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%); */
 }
 
 .App-logo {
@@ -10,10 +8,7 @@
 }
 
 .App-header {
-  /* background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%); */
-  /* background-color: #fff; */
-  min-height: 100vh;
-  /* display: flex; */
+  min-height: 30%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -41,10 +36,11 @@
 }
 
 .cinema-footer {
-  margin-top: 1%;
-  padding-top: 1%;
+  box-shadow: 0 -4px 2px -2px gray;
+  padding-top: 0%;
   padding-bottom: 1%;
-  font-weight: bold;
+  margin-top: 1%;
+  /* font-weight: bold; */
   font-family: "Comic Sans MS", cursive, sans-serif;
   align-items: center;
   justify-content: center;
@@ -52,39 +48,235 @@
   color: #805be7;
   height: 40%;
   width: 100%;
-  /* background: #081c24; */
-  background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%);
-  /* background-image:url(/assets/1/v4/footers_v2/TheMartian-cef692c….jpg), radial-gradient(at 30% top, rgba(7, 64, 52, 1) 0%, rgba(8, 28, 36, 1) 70%); */
+}
+
+@media only screen and (max-width: 900px) {
+  [class = "cinema-header"]  {
+      font-size: 20%; 
+      width: 500px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  [class = "add-movie"]  {
+      font-size: 0; 
+      display: inline-block;
+      margin-right: -7px;
+      margin-top: -9px;
+  }
 }
 
 .cinema-header {
+  font-size: calc(25px + 1vmin);
+  text-align: left;
+  box-shadow: 0 4px 2px -2px gray;
   padding-top: 1%;
+  padding-left: 1%;
   padding-bottom: 1%;
-  /* font-weight: bold; */
-  /* font-family: "Comic Sans MS", cursive, sans-serif; */
-  font-family: Verdana,sans-serif;
+  margin-bottom: 1%;
+  font-weight: bold;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  /* font-family: Verdana,sans-serif; */
   align-items: center;
   justify-content: center;
-  font-size: calc(20px + 3vmin);
-  color: #01d277;
+  font-size: calc(7px + 3vmin);
+  color: #C1403D;
   height: 40%;
   width: 100%;
-  /* background: #081c24; */
-  /* background-image: radial-gradient(at 30% top, rgba(31, 40, 73, 1) 0%, rgba(8, 28, 36, 1) 70%); */
-  background-image:url(/assets/1/v4/footers_v2/TheMartian-cef692c….jpg), radial-gradient(at 30% top, rgba(7, 64, 52, 1) 0%, rgba(8, 28, 36, 1) 70%);
+  background: #040c0E;
 }
 
+
 .movie-details {
-  width: 200px;
-  height: 200px;
-  display: inline-block;
-  border: 2px solid #081c24;
+  width: 270px;
+  height: 230px;
+  background-color:whitesmoke;
+  border-radius: 7px;
+  box-shadow: 0 4px 2px -2px gray;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top:24%; 
+  margin-top:-25%; 
+  line-height:1;
+  margin-bottom:5%; 
 }
 
 .movie{
   width: 300px;
   height: 300px;
   display: inline-block;
-  border: 2px solid #081c24;
+}
+
+.btn-add-movie{
+  font-size: calc(10px + 1vmin);
+  position: absolute;
+  top:0;
+  right:-40px;
+}
+
+
+.add-movie{
+  display: flex;
+  position: absolute;
+  right:60px;
+  top:calc(15px);
+}
+
+.add-modal{
+  display: flex;
+  position: absolute;
+  z-index: 6;
+  right:0;
+}
+
+.headline-add-movie{
+  display: flex;
+  font-size: 15px;
+  color: #081c24;
+}
+
+.movies-container {
+  min-width: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-right:5%;
+  padding-left: 6%;
+  /* margin-right: auto;
+  margin-left: auto;  */
+  margin-right: 4%;
+  margin-left: 4%; 
+  z-index: 1;
+  background-color: #040c0E;
+}
+ 
+.item-container{
+  width: 320px;
+  height: 420px;
+  position: relative;
+  background-color: white;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: 1px 1px 1px #B3B3B3;
+  margin: 20px;
+  background-color:#C1403D;
+  background-color:#0294A5;
+  border-radius: 7px;
+}
+ 
+
+.edit-modal{
+  z-index: 8;
+  padding: 3%;
+  position: absolute;
+  display: flex;
+  top:0;
+  left:0;
+}
+
+.movie-circle {
+  width: 150px;
+  height: 150px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: relative;
+  top:17%;
+  margin-right: auto;
+  margin-left: auto; 
+  margin-bottom: 3%;
+  box-shadow: 0 -4px 2px -2px gray;
+}
+
+.movie-img {
+  width: 70%;
+  height: 70%;
+  background-color:#2d2d2d;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 8;
+  position: relative;
+  top:15%;
+}
+
+.movie-buttons{
+  display: flex;
+  position: relative;
+  left:78%;
+  padding: 1%;
+  
+}
+
+.movie-title {
+  display: inline-block;
+  color: #EAEBE7;
+  font-size: 20px;
+  display: flex;
+
+  line-height: 20px;
+  width: 80%;
+  height: 20px;
+  position: relative;
+  top:-7%;
+  padding-left:5%;
+}
+
+.movie-body {
+  flex-direction: column;
+  display: flex;
+  position: relative; 
+  padding: 1%;
+  top:0;
+}
+
+.edit-modal-btn {
+  margin: 2px;
+  margin-top: 10px
+}
+.edit-modal-input {
+  margin: 2px
+}
+
+.delete-modal {
+  z-index: 8;
+  position: absolute;
+  top:10px;
+  left:0;
+  margin-right: auto;
+  margin-left: auto; 
+}
+
+.inner-movie {
+  margin-left: 2.5%;
+  margin-top: 2.5%;
+  width: 95%;
+  height:80%;
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+  background-color:#C1403D;
+  color:#EAEBE7;
+  border-radius: 5px;
+  padding: 7px;
+  opacity: 0.9;
+}
+
+.input-span {
+  background-color:#fff;
+  border-right:none!important;
+  border-top-right-radius:0  !important;
+  border-bottom-right-radius:0  !important;
+} 
+
+.input-span-right {
+  background-color:#fff;
+  border-left:none!important;
+} 
+
+.cinema-footer {
+  box-shadow: 0 -4px 2px -2px gray;
+  margin-top: 1%;
+  height: 40%;
+  width: 100%;
 }
 

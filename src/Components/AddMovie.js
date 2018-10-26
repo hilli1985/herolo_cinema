@@ -1,27 +1,31 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react"; 
 import { observable, action } from "mobx"; 
-
+import { Modal } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faPlusSquare} from '@fortawesome/free-solid-svg-icons'
+import { library} from '@fortawesome/fontawesome-svg-core'
+library.add(faPlusSquare)
 
 
 @inject("store")
 @observer
 class AddMovie extends Component {
-    @observable showMe = true;
-    @observable id = '';
+    @observable showMe = false;
     @observable title = '';
     @observable runtime = '';
     @observable genres = '';
     @observable director = '';
     @observable year = '';
     
-
-     
-    @action closeAddMovie = ()=>{
-        this.showMe = !this.showMe; 
+    @action toggleAddMovie = ()=>{
+        this.showMe = !this.showMe;
+        this.clearModal();
     }
     
     @action onSubmit = (e) =>{
+        let movieExist = false;
+        let dateValid = true;
         e.preventDefault();
         let newMovie = {
             id : this.id,
@@ -31,9 +35,35 @@ class AddMovie extends Component {
             runtime : this.runtime,
             director : this.director
         }
-        this.props.store.addMovie(newMovie);
-        this.closeAddMovie();
 
+        if (this.title==='') {
+            alert('Title is cannot be empty!')
+            return;
+        }
+
+        movieExist = this.props.store.isMovieExist(this.title);
+        dateValid = this.props.store.isDateValid (this.year);
+        if (movieExist){
+            alert('Same movie name is already exist, please use a different one!')
+            return;
+        }
+        if (!dateValid){
+            alert('Please use only numbers in year!')
+            return;
+        }
+        this.props.store.addMovie(newMovie);
+        this.clearModal();
+        this.toggleAddMovie();
+        
+    }
+
+    @action clearModal  = () => {
+        this.id = '';
+        this.title = '';
+        this.runtime = '';
+        this.genres = '';
+        this.director = '';
+        this.year = '';
     }
 
     @action handleChange = (e) =>{
@@ -41,20 +71,32 @@ class AddMovie extends Component {
     }
     
     render() {
-        let movieDetails = this.props.movieDetails;
-        console.log(movieDetails);
-        return (!this.showMe?<div></div>:<div className=''>Add New Movie
-        <form onSubmit={this.onSubmit}>
-        <input type="text" name="id"  value={this.id} onChange={this.handleChange} placeholder='id'/><br/>
-        <input type="text" name="title" value={this.title} onChange={this.handleChange} placeholder='title'/><br/>
-        <input type="text" name="year" value={this.year} onChange={this.handleChange} placeholder='year'/><br/>
-        <input type="text" name="runtime" value={this.runtime} onChange={this.handleChange} placeholder='runtime'/><br/>
-        <input type="text" name="genres" value={this.genres} onChange={this.handleChange} placeholder='genres'/><br/>
-        <input type="text" name="director" property="director" value={this.director} onChange={this.handleChange} placeholder='director'/><br/>
-        <input type="submit" value="Add New" />
-        </form>
-        <button onClick={this.closeAddMovie}>Cancel</button>
-        </div>);
+        return (!this.showMe?
+            <div className="add-movie">Add New<button className="btn-add-movie" onClick={this.toggleAddMovie}> <FontAwesomeIcon className='icon' icon="plus-square" /></button>
+            </div>
+            :
+            <div>
+            <div className="add-movie">Add New<button className="btn-add-movie" onClick={this.toggleAddMovie}> <FontAwesomeIcon className='icon' icon="plus-square" /></button>
+            </div>
+            <div className="add-modal">
+            <Modal.Dialog>
+            <Modal.Header closeButton onClick={this.toggleAddMovie}>
+            <Modal.Title>Add New Movie</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <form className="form-group" onSubmit={this.onSubmit}>
+            <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="title"  value={this.title} onChange={this.handleChange} placeholder='title'/>
+            <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="year"  value={this.year} onChange={this.handleChange}placeholder='year' />
+            <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="runtime"  value={this.runtime} onChange={this.handleChange} placeholder='runtime'/>
+            <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="genres"  value={this.genres} onChange={this.handleChange} placeholder='genres'/>
+            <input className="input-group edt-mdl-gr form-control input-sm" type="text" name="director"  value={this.director} onChange={this.handleChange} placeholder='director'/>
+            <input className="btn btn-primary edit-modal-btn" type="submit" value="Save" />
+            <button className="btn btn-secondary edit-modal-btn" onClick={this.toggleAddMovie}>Cancel</button>
+            </form>
+            </Modal.Body>
+            </Modal.Dialog>
+            </div>
+            </div>);
+        }
     }
-}
-export default AddMovie;
+    export default AddMovie;
