@@ -81,10 +81,13 @@ class cinemaStore {
     
     isMovieExist = (title,action,id) => {
         if (action==='add') {
-            return (this.movies.filter(m => m.title===title).length!==0)
+            return (!(this.movies.filter(m => m.title===title).length===0))
         }
         if (action==='edit') { 
-            return ((this.movies.filter(m => m.title===title)[0].id === id))
+            if ((this.movies.filter(m => m.title===title).length===0)){
+                return (!(this.movies.filter(m => m.title===title).length===0)) // not exist
+            }
+            return ((this.movies.filter(m => m.title===title)[0].id === id)) //exist but it's the same instance
         }
     }
     
