@@ -42,7 +42,7 @@ class Movie extends Component {
             return;
         }
         let title = this.props.movieDetails.title;
-        title = title.toCamelCase(title);
+        title = this.props.store.toCamelCase(title);
         title = this.props.store.cleanTheString(title);
         this.getGenreStr();
         return (!this.showMovie?<div></div>:

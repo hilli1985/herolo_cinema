@@ -10,7 +10,7 @@ class Movies extends Component {
     render() {
         return (
         <div className='movies-container movies'>
-        {this.props.store.movies.map(m =>(<div key={m.id} ><Movie movieDetails={m}/></div>))}
+        {this.props.store.movies.map(m =>(<Movie key={m.id} movieDetails={m}/>))}
         </div>);
     }
 }
