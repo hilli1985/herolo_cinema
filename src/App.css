@@ -235,7 +235,7 @@
   z-index: 8;
   position: absolute;
   top:10px;
-  left:0;
+  left:60px;
   margin-right: auto;
   margin-left: auto; 
 }
@@ -302,7 +302,7 @@
   }
 }
 
-@media screen and (min-width : 830px) and (max-width : 900px) {
+@media screen and (min-width : 700px) and (max-width : 900px) {
   
   .add-movie  {
     font-size: 0; 
